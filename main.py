@@ -1,10 +1,11 @@
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
-from ulauncher.api.shared.event import KeywordQueryEvent, ItemEnterEvent
+from ulauncher.api.shared.event import KeywordQueryEvent
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 
+from src.functions import strip_list
 from src.translate_shell import TranslateShell
-from src.items import no_input_item, missing_dep_item
+from src.items import no_input_item, missing_dep_item, show_used_args
 
 class TranslateExtension(Extension):
     def __init__(self):
@@ -25,14 +26,12 @@ class KeywordQueryEventListener(EventListener):
         try:
             parser = TranslateShell(params)
 
-            if parser.has_request():
-                translations = parser.execute()
-            else:
-                translations = []
+            if not parser.has_request():
+                return RenderResultListAction(show_used_args(parser))
         except OSError:
             return RenderResultListAction(missing_dep_item())
 
-        return RenderResultListAction(translations)
+        return RenderResultListAction(parser.execute())
 
 
 if __name__ == '__main__':

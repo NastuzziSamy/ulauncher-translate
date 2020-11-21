@@ -6,11 +6,11 @@ from src.items import generate_trans_item
 
 
 ALLOWED_PARAMS = [
-    '-p', '-sp', '-browser', '-L'
+    '-p', '-sp'
 ]
 
 FORCED_ARGUMENTS = [
-    '-b', '-j'
+    '-no-ansi', '-b', '-j'
 ]
 
 
@@ -18,12 +18,8 @@ class TranslateShell:
     def __init__(self, params):
         self.from_lang = 'auto'
         self.to_lang = 'auto'
-        self.args = ['-no-ansi', '-indent 0'];
+        self.args = [];
         self._parse_params(params)
-
-        self._current_translation = None
-        self._examples = list()
-        self._synonyms = list()
 
 
     def _parse_params(self, params):
@@ -85,14 +81,11 @@ class TranslateShell:
         result = subprocess.check_output(self.get_arguments(), encoding='utf-8')
         lines = strip_list(result.split('\n'))
 
-        with open('/home/samy/Git/ulauncher-translator/test', 'a') as outfile:
-            json.dump(lines, outfile)
-
         if len(lines) == 0:
             return items
 
         langs = self.to_lang.split('+')
         for i in range(len(langs)):
-            items.append(generate_trans_item(lines))
+            items.append(generate_trans_item(lines[i], self.request, langs[i]))
 
         return items
