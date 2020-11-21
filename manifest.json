@@ -11,7 +11,8 @@
     {
       "id": "translate_keyword",
       "type": "keyword",
-      "name": "Keyword",
+      "name": "Translate",
+      "description": "Translate to multiple languages",
       "default_value": "trans"
     }
   ]
