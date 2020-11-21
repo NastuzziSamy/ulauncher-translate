@@ -1,0 +1,19 @@
+{
+  "name": "Translate",
+  "required_api_version": "^2.0.0",
+  "description": "Uses translate-shell for translating",
+  "developer_name": "Samy NASTUZZI",
+  "icon": "images/icon.png",
+  "options": {
+    "query_debounce": 1
+  },
+  "preferences": [
+    {
+      "id": "translate_keyword",
+      "type": "keyword",
+      "name": "Keyword",
+      "default_value": "trans"
+    }
+  ]
+}
+
