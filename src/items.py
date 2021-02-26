@@ -18,6 +18,15 @@ def no_input_item():
     ]
 
 
+def no_translation_available():
+    return [
+        ExtensionResultItem(
+            icon=ICON_FILE,
+            name='No translation available',
+            on_enter=DoNothingAction()
+        )
+    ]
+
 def missing_dep_item():
     return [
         ExtensionResultItem(
@@ -36,6 +45,12 @@ def generate_trans_item(translation, original, to_lang):
         description='{}: {}'.format(to_lang, original),
         on_enter=CopyToClipboardAction(translation)
     )
+
+
+def generate_trans_items(translations):
+    return [
+        generate_trans_item(translation, original, to_lang)
+    for (translation, original, to_lang) in translations]
 
 
 def lang_items(from_lang, to_lang):

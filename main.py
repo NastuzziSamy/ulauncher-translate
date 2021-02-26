@@ -5,7 +5,7 @@ from ulauncher.api.shared.action.RenderResultListAction import RenderResultListA
 
 from src.functions import strip_list
 from src.translate_shell import TranslateShell
-from src.items import no_input_item, missing_dep_item, show_used_args
+from src.items import no_input_item, missing_dep_item, show_used_args, generate_trans_items, no_translation_available
 
 class TranslateExtension(Extension):
     def __init__(self):
@@ -26,12 +26,17 @@ class KeywordQueryEventListener(EventListener):
         try:
             parser = TranslateShell(params)
 
-            if not parser.has_request():
+            if not parser.has_query():
                 return RenderResultListAction(show_used_args(parser))
         except OSError:
             return RenderResultListAction(missing_dep_item())
 
-        return RenderResultListAction(parser.execute())
+        translations = parser.execute()
+
+        if not translations:
+            return RenderResultListAction(no_translation_available())
+
+        return RenderResultListAction(generate_trans_items(translations))
 
 
 if __name__ == '__main__':

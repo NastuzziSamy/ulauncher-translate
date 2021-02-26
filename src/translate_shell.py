@@ -46,7 +46,7 @@ class TranslateShell:
             if to_lang:
                 self.to_lang = to_lang
 
-        self.request = ' '.join(params)
+        self.query = ' '.join(params)
 
 
     def get_lang_argument(self):
@@ -67,12 +67,12 @@ class TranslateShell:
             *self.args, 
             self.get_lang_argument(), 
             *FORCED_ARGUMENTS,
-            self.request
+            self.query
         ]);
 
 
-    def has_request(self):
-        return len(self.request) > 0
+    def has_query(self):
+        return len(self.query) > 0
 
 
     def execute(self):
@@ -86,6 +86,6 @@ class TranslateShell:
 
         langs = self.to_lang.split('+')
         for i in range(len(langs)):
-            items.append(generate_trans_item(lines[i], self.request, langs[i]))
+            items.append((lines[i], self.query, langs[i]))
 
         return items
