@@ -50,7 +50,7 @@ class TranslateShell:
 
 
     def is_dep_missing(self):
-        return subprocess.Popen(['trans'], shell=True).wait() == 127
+        return subprocess.Popen('trans -h', shell=True).wait() == 127
 
 
     def get_lang_argument(self):
