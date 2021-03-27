@@ -5,7 +5,7 @@
   "developer_name": "Samy NASTUZZI",
   "icon": "images/icon.png",
   "options": {
-    "query_debounce": 1
+    "query_debounce": 0.5
   },
   "preferences": [
     {
@@ -14,6 +14,20 @@
       "name": "Translate",
       "description": "Translate to multiple languages",
       "default_value": "trans"
+    },
+    {
+      "id": "from_lang",
+      "type": "text",
+      "name": "From lang",
+      "description": "Lang to use by default for translation",
+      "default_value": "auto"
+    },
+    {
+      "id": "to_lang",
+      "type": "text",
+      "name": "To lang",
+      "description": "Lang translate to",
+      "default_value": "auto"
     }
   ]
 }
