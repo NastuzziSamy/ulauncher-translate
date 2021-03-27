@@ -15,9 +15,9 @@ FORCED_ARGUMENTS = [
 
 
 class TranslateShell:
-    def __init__(self, params):
-        self.from_lang = 'auto'
-        self.to_lang = 'auto'
+    def __init__(self, preferences, params={}):
+        self.from_lang = preferences.get('from_lang', 'auto')
+        self.to_lang = preferences.get('to_lang', 'auto')
         self.args = [];
         self._parse_params(params)
 

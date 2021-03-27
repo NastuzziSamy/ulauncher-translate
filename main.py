@@ -20,7 +20,7 @@ class KeywordQueryEventListener(EventListener):
 
         params = strip_list(query.split(' '))
 
-        parser = TranslateShell(params)
+        parser = TranslateShell(extension.preferences, params)
 
         if parser.is_dep_missing():
             return RenderResultListAction(missing_dep_item())
