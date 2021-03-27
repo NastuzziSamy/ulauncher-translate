@@ -31,7 +31,7 @@ def missing_dep_item():
     return [
         ExtensionResultItem(
             icon=ICON_FILE,
-            name='Translate-shell is required for this extension to work',
+            name='Translate-shell is required for this extension',
             description="Select to follow install instructions",
             on_enter=OpenUrlAction('https://github.com/soimort/translate-shell#installation')
         )
@@ -61,7 +61,7 @@ def lang_items(from_lang, to_lang):
             description='With Google Translation engine',
             on_enter=DoNothingAction()
         )
-    for lang in to_lang.split('+')] 
+    for lang in to_lang.split('+')]
 
 
 def generate_args_items(args):
@@ -70,7 +70,7 @@ def generate_args_items(args):
             icon=ICON_FILE,
             name='{}: {}'.fromat(arg, arg_to_help(arg)),
             on_enter=DoNothingAction()
-        )    
+        )
     for arg in args]
 
 

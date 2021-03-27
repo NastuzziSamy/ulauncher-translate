@@ -18,18 +18,18 @@ class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         query = event.get_argument() or str()
 
+        params = strip_list(query.split(' '))
+
+        parser = TranslateShell(params)
+
+        if parser.is_dep_missing():
+            return RenderResultListAction(missing_dep_item())
+
         if len(query.strip()) == 0:
             return RenderResultListAction(no_input_item())
 
-        params = strip_list(query.split(' '))
-
-        try:
-            parser = TranslateShell(params)
-
-            if not parser.has_query():
-                return RenderResultListAction(show_used_args(parser))
-        except OSError:
-            return RenderResultListAction(missing_dep_item())
+        if not parser.has_query():
+            return RenderResultListAction(show_used_args(parser))
 
         translations = parser.execute()
 

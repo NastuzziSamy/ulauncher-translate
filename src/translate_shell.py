@@ -49,9 +49,13 @@ class TranslateShell:
         self.query = ' '.join(params)
 
 
+    def is_dep_missing(self):
+        return subprocess.Popen(['trans'], shell=True).wait() == 127
+
+
     def get_lang_argument(self):
         (from_lang, to_lang) = (
-            self.from_lang if self.from_lang != 'auto' else '', 
+            self.from_lang if self.from_lang != 'auto' else '',
             self.to_lang if self.to_lang != 'auto' else ''
         )
 
@@ -64,8 +68,8 @@ class TranslateShell:
     def get_arguments(self):
         return strip_list([
             'trans',
-            *self.args, 
-            self.get_lang_argument(), 
+            *self.args,
+            self.get_lang_argument(),
             *FORCED_ARGUMENTS,
             self.query
         ]);
@@ -77,7 +81,7 @@ class TranslateShell:
 
     def execute(self):
         items = []
-        
+
         result = subprocess.check_output(self.get_arguments(), encoding='utf-8')
         lines = strip_list(result.split('\n'))
 
